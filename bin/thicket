@@ -3,11 +3,6 @@
 # frozen_string_literal: true
 
 require "thicket"
-# require "ruby-prof"
 
-# result = RubyProf.profile do
 parser = Thicket::OptionParser.new
 Thicket::Log.new(parser.options).print
-# end
-
-# RubyProf::GraphPrinter.new(result).print

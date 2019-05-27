@@ -29,6 +29,4 @@ Gem::Specification.new do |s|
   s.add_development_dependency "rufo", "~> 0.5.1"
   s.add_development_dependency "simplecov"
   s.add_development_dependency "solargraph"
-
-  s.add_dependency "colorize"
 end

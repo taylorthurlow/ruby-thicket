@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require "colorize"
 require "fileutils"
 require "time"
 
@@ -18,6 +17,8 @@ module Thicket
     def print
       FileUtils.cd(git_working_directory)
       `#{git_log_command}`.split("\n").each { |l| puts process_git_log_line(l) }
+    rescue Errno::EPIPE, SystemExit, Interrupt
+      exit
     end
 
     private
@@ -53,9 +54,7 @@ module Thicket
       prefix_regex = %r{^(?=.*[0-9])([A-Z\d-]+?[: \/])}
       message.match(prefix_regex) do |matcher|
         prefix = matcher[1]
-        replacement_regex = /([^\/])#{prefix}/
-        replacement = "\\1" + prefix.colorize(:light_black)
-        line.sub!(replacement_regex, replacement)
+        line.sub!(/([^\/])#{prefix}/, "\\1\e[1;30m#{prefix}\e[m")
       end
     end
 
@@ -72,10 +71,12 @@ module Thicket
       if spaces_needed < 0
         line = +"#{line[0...-spaces_needed - 5]}... "
       else
-        line << (@padding_char * spaces_needed).colorize(:black)
+        line << " \e[30m"
+        line << @padding_char * spaces_needed
+        line << " \e[m"
       end
 
-      line << author.colorize(:blue)
+      line << "\e[34m#{author}\e[m"
     end
 
     # Strips ANSI color escape codes from a string. Colorize's
