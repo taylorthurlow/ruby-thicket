@@ -17,7 +17,9 @@ module Thicket
     # the user.
     def print
       FileUtils.cd(git_working_directory)
-      `#{git_log_command}`.split("\n").each do |l|
+      `#{git_log_command}`.encode("UTF-8", invalid: :replace, undef: :replace)
+                          .split("\n")
+                          .each do |l|
         puts process_git_log_line(l)
 
         next unless @options[:limit] && @count_parsed >= @options[:limit]
