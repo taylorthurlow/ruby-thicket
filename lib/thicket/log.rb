@@ -54,7 +54,7 @@ module Thicket
       prefix_regex = %r{^(?=.*[0-9])([A-Z\d-]+?[: \/])}
       message.match(prefix_regex) do |matcher|
         prefix = matcher[1]
-        line.sub!(/([^\/])#{prefix}/, "\\1\e[1;30m#{prefix}\e[m")
+        line.sub!(/([^\/])#{prefix}/, "\\1\e[30m#{prefix}\e[m")
       end
     end
 
