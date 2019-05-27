@@ -40,9 +40,9 @@ module Thicket
       @padding_char = @padding_char == " " ? "-" : " "
 
       line.match(LOG_PARSE_REGEX) do |matcher|
-        process_date_time(matcher[1], line, matcher[3])
-        process_message_prefix(matcher[4], line) if @options[:color_prefixes]
-        process_author_name(matcher[2], line)
+        line = process_date_time(matcher[1], line, matcher[3])
+        line = process_message_prefix(matcher[4], line) if @options[:color_prefixes]
+        line = process_author_name(matcher[2], line)
         @count_parsed += 1
       end
 
@@ -57,7 +57,8 @@ module Thicket
       quantity = (seconds_ago / measure.length).floor
       to_sub = +"#{quantity}#{measure.abbreviation}".rjust(3)
       to_sub << "\e[31m" if have_refs # add color if we have refs in this line
-      line.sub!(time_string, to_sub)
+
+      line.sub(time_string, to_sub)
     end
 
     # Takes an input log string and commit message, finds commit messages
@@ -66,8 +67,10 @@ module Thicket
       prefix_regex = %r{^(?=.*[0-9])([A-Z\d-]+?[: \/])}
       message.match(prefix_regex) do |matcher|
         prefix = matcher[1]
-        line.sub!(/([^\/])#{prefix}/, "\\1\e[30m#{prefix}\e[m")
+        return line.sub(/([^\/])#{prefix}/, "\\1\e[30m#{prefix}\e[m")
       end
+
+      line
     end
 
     # Takes an input log string and commit author, and moves it from the normal
@@ -81,7 +84,7 @@ module Thicket
       total_length = strip_color(line).length
       spaces_needed = terminal_width - total_length - author.length - 2
       if spaces_needed < 0
-        line = +"#{line[0...-spaces_needed - 5]}... "
+        line = +"#{line[0...-spaces_needed - 5]}...  "
       else
         line << " \e[30m"
         line << @padding_char * spaces_needed
