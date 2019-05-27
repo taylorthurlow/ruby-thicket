@@ -37,6 +37,11 @@ module Thicket
           @options[:project_directory] = File.expand_path(project_directory)
         end
 
+        opts.on("-n", "--commit-limit LIMIT", Integer, "Number of commits to parse before stopping") do |limit|
+          args.name = limit
+          @options[:limit] = limit
+        end
+
         opts.on("-a", "--all", TrueClass, "Displays all branches on all remotes.") do |all|
           args.name = all
           @options[:all] = all

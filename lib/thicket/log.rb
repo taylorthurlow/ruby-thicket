@@ -9,6 +9,7 @@ module Thicket
 
     def initialize(options)
       @options = options
+      @count_parsed = 0
     end
 
     # Gets a printable version of the log for purposes of printing to a
@@ -16,7 +17,15 @@ module Thicket
     # the user.
     def print
       FileUtils.cd(git_working_directory)
-      `#{git_log_command}`.split("\n").each { |l| puts process_git_log_line(l) }
+      `#{git_log_command}`.split("\n").each do |l|
+        puts process_git_log_line(l)
+
+        next unless @options[:limit] && @count_parsed >= @options[:limit]
+
+        puts "..."
+        puts "Stopped after #{@options[:limit]} commits. More commit history exists."
+        exit
+      end
     rescue Errno::EPIPE, SystemExit, Interrupt
       exit
     end
@@ -32,6 +41,7 @@ module Thicket
         process_date_time(matcher[1], line, matcher[3])
         process_message_prefix(matcher[4], line) if @options[:color_prefixes]
         process_author_name(matcher[2], line)
+        @count_parsed += 1
       end
 
       line
