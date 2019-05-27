@@ -3,6 +3,7 @@
 require "thicket/version"
 require "thicket/log"
 require "thicket/option_parser"
+require "thicket/time_measure"
 
 module Thicket
   def self.root

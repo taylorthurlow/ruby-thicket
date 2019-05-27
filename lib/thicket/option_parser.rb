@@ -42,6 +42,11 @@ module Thicket
           @options[:all] = all
         end
 
+        opts.on("-p", "--color-prefixes", TrueClass, "Adds coloring to commit message prefixes.") do |prefixes|
+          args.name = prefixes
+          @options[:color_prefixes] = prefixes
+        end
+
         opts.on("--git-binary BINARY", String, "Path to a git executable") do |git_binary|
           args.name = git_binary
           @options[:git_binary] = File.expand_path(git_binary)
