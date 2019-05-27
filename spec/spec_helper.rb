@@ -31,11 +31,6 @@ RSpec.configure do |config|
   end
 end
 
-# allow rspec mocks in factory_bot definitions
-FactoryBot::SyntaxRunner.class_eval do
-  include RSpec::Mocks::ExampleMethods
-end
-
 #####
 # Helper methods
 #####
