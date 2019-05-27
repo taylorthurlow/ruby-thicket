@@ -5,7 +5,7 @@ require "time"
 
 module Thicket
   class Log
-    LOG_PARSE_REGEX = /[a-f0-9]{7}.+?m(.+?) .+?m\{([\w ]+)\}.+?m (?:\((.+?)\))?.+?m(.+$)/.freeze
+    LOG_PARSE_REGEX = /[a-f0-9]{7}.+?m(.+?) .+?m\{(.+?)\}.+?m (?:\((.+?)\))?.+?m(.+$)/.freeze
 
     def initialize(options)
       @options = options
