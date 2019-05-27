@@ -1,0 +1,15 @@
+# IDE
+*.sublime-*
+tags
+
+# Bundler, Gems
+.bundle
+vendor
+*.gem
+doc
+.yardoc
+
+# Logs
+logs
+.byebug_history
+coverage
