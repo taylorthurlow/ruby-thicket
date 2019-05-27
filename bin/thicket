@@ -6,4 +6,4 @@ require "thicket"
 
 parser = Thicket::OptionParser.new
 logger = Thicket::Log.new(parser.options)
-print logger.to_s
+puts logger.to_s
