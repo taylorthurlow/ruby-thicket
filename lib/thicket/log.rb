@@ -102,7 +102,7 @@ module Thicket
     # Includes all formatting and color escape codes.
     def git_log_command
       format = "%C(yellow)%h %Cgreen%aI %Cblue{%an}%Cred%d %Creset%s"
-      cmd = "#{git_executable} log --oneline --decorate --color " \
+      cmd = +"#{git_executable} log --oneline --decorate --color " \
       "--graph --pretty=format:'#{format}'"
       cmd << " --all" if @options[:all]
 
