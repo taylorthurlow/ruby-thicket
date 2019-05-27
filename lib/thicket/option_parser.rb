@@ -32,9 +32,9 @@ module Thicket
           exit
         end
 
-        opts.on("-d", "--directory", String, "Path to the project directory") do |project_directory|
+        opts.on("-d", "--directory DIRECTORY", String, "Path to the project directory") do |project_directory|
           args.name = project_directory
-          @options[:project_directory] = project_directory
+          @options[:project_directory] = File.expand_path(project_directory)
         end
 
         opts.on("-a", "--all", TrueClass, "Displays all branches on all remotes.") do |all|
@@ -42,9 +42,9 @@ module Thicket
           @options[:all] = all
         end
 
-        opts.on("--git-binary", String, "Path to a git executable") do |git_binary|
+        opts.on("--git-binary BINARY", String, "Path to a git executable") do |git_binary|
           args.name = git_binary
-          @options[:git_binary] = git_binary
+          @options[:git_binary] = File.expand_path(git_binary)
         end
       end
 
