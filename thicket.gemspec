@@ -22,6 +22,9 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
   s.required_ruby_version = ">= 2.3"
 
+  s.add_development_dependency "as-duration"
+  s.add_development_dependency "factory_bot"
+  s.add_development_dependency "faker"
   s.add_development_dependency "guard"
   s.add_development_dependency "guard-rspec"
   s.add_development_dependency "pry-byebug"
