@@ -3,6 +3,10 @@
 [![Code Climate Maintainability](https://img.shields.io/codeclimate/maintainability/taylorthurlow/thicket.svg)](https://codeclimate.com/github/taylorthurlow/thicket)
 [![Code Climate Test Coverage](https://img.shields.io/codeclimate/coverage/taylorthurlow/thicket.svg)](https://codeclimate.com/github/taylorthurlow/thicket)
 
+<p align="center">
+    <img src="https://user-images.githubusercontent.com/761640/58450380-87fd1900-80c3-11e9-83b6-7fda621a15e2.png" />
+</p>
+
 `thicket` is an opinionated wrapper for `git log`.
 
 ### Getting started
