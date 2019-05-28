@@ -25,12 +25,13 @@ gem install thicket
 
 For help, run `thicket -h`:
 
-```
+```plain
 $ thicket -h
-Usage: thicket [options] <command>
+Usage: thicket [options]
     -v, --version                    Print the version number
     -h, --help                       Prints this help
     -d, --directory DIRECTORY        Path to the project directory
+    -n, --commit-limit LIMIT         Number of commits to parse before stopping
     -a, --all                        Displays all branches on all remotes.
     -p, --color-prefixes             Adds coloring to commit message prefixes.
         --git-binary BINARY          Path to a git executable

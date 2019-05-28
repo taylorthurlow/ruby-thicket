@@ -19,7 +19,7 @@ module Thicket
       args = Options.new("world")
 
       opt_parser = ::OptionParser.new do |opts|
-        opts.banner = "Usage: thicket [options] <command>"
+        opts.banner = "Usage: thicket [options]"
 
         opts.on("-v", "--version", "Print the version number") do |v|
           args.name = v
