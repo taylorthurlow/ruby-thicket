@@ -72,6 +72,7 @@ module Thicket
       refs[head_ref_index].slice!("HEAD -> ") if head_ref_index
 
       refs.each do |r|
+        refs.delete(r) if r == "#{main_remote}/HEAD"
         next if r.start_with?("#{main_remote}/")
 
         branch = "#{main_remote}/#{r}"
