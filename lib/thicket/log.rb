@@ -54,8 +54,6 @@ module Thicket
     def process_date_time(time_string, line, have_refs)
       seconds_ago = Time.now - Time.iso8601(time_string)
       measure = TimeMeasure.measures.find { |m| m.threshold < seconds_ago }
-      require "pry-byebug"
-      binding.pry if measure.nil?
       quantity = (seconds_ago / measure.length).floor
       to_sub = +"#{quantity}#{measure.abbreviation}".rjust(3)
       to_sub << "\e[31m" if have_refs # add color if we have refs in this line
