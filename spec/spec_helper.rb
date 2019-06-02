@@ -25,19 +25,4 @@ RSpec.configure do |config|
   config.before(:suite) do
     FactoryBot.find_definitions
   end
-
-  original_stdout = $stdout
-  original_stderr = $stderr
-
-  config.before(:all) do
-    unless defined?(Byebug) || defined?(Pry)
-      $stdout = File.open(File::NULL, "w")
-      $stderr = File.open(File::NULL, "w")
-    end
-  end
-
-  config.after(:all) do
-    $stdout = original_stdout
-    $stderr = original_stderr
-  end
 end

@@ -14,6 +14,11 @@ module FakeGit
         `git add #{full_path}`
         `git commit -m "#{@message}" --date="#{@author_date}"`
 
+        if rand(1..100) <= 50
+          `git tag #{SecureRandom.hex(3)}`
+          `git tag #{SecureRandom.hex(3)}` if rand(1..100) < 25
+        end
+
         # 20% chance to branch off
         if rand(1..100) <= 20
           `git checkout -b #{SecureRandom.hex(5)} 2>&1`

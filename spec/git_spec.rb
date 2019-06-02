@@ -5,13 +5,14 @@ RSpec.describe "Git" do
     allow_any_instance_of(Thicket::Log).to receive(:terminal_width).and_return(120)
 
     repo = create(:repo)
-    create_list(:commit, 1000, repo: repo)
+    create_list(:commit, 100, repo: repo)
 
     repo.generate
 
     args_list = [
       ["-d", repo.directory, "--color-prefixes", "--all"],
       ["-d", repo.directory, "--all", "-n", "30"],
+      ["-d", repo.directory, "--all", "-r"],
       ["-h"],
       ["-v"],
     ]
