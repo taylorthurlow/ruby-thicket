@@ -26,7 +26,7 @@ module Thicket
 
         puts "..."
         puts "Stopped after #{@options[:limit]} commits. More commit history exists."
-        exit
+        break
       end
     rescue Errno::EPIPE, SystemExit, Interrupt
       exit
