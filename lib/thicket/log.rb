@@ -71,7 +71,6 @@ module Thicket
       tags = []
 
       head_ref_index = refs.find_index { |r| r.start_with?("HEAD -> ") }
-      refs[head_ref_index].slice!("HEAD -> ") if head_ref_index
 
       refs_to_delete = []
       refs.each do |r|
@@ -94,6 +93,7 @@ module Thicket
         end
       end
 
+      refs[head_ref_index].sub!("HEAD -> ", "@") if head_ref_index
       refs.delete_if { |r| refs_to_delete.include? r }
 
       refs = if refs.any?
