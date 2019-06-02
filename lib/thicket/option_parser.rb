@@ -42,9 +42,14 @@ module Thicket
           @options[:limit] = limit
         end
 
-        opts.on("-a", "--all", TrueClass, "Displays all branches on all remotes.") do |all|
+        opts.on("-a", "--all", TrueClass, "Displays all branches on all remotes") do |all|
           args.name = all
           @options[:all] = all
+        end
+
+        opts.on("-r", "--refs", TrueClass, "Consolidate the refs list") do |refs|
+          args.name = refs
+          @options[:consolidate_refs] = refs
         end
 
         opts.on("-p", "--color-prefixes", TrueClass, "Adds coloring to commit message prefixes.") do |prefixes|

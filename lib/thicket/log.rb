@@ -41,6 +41,7 @@ module Thicket
 
       line.match(LOG_PARSE_REGEX) do |matcher|
         line = process_date_time(matcher[1], line, matcher[3])
+        line = process_refs(matcher[3], line) if matcher[3] && @options[:consolidate_refs]
         line = process_message_prefix(matcher[4], line) if @options[:color_prefixes]
         line = process_author_name(matcher[2], line)
         @count_parsed += 1
@@ -59,6 +60,28 @@ module Thicket
       to_sub << "\e[31m" if have_refs # add color if we have refs in this line
 
       line.sub(time_string, to_sub)
+    end
+
+    # Takes an input log string and a refs list, and formats the refs list in a
+    # more consolidated way.
+    def process_refs(refs, line, main_remote: "origin")
+      original_refs = refs
+      refs = strip_color(refs).split(",").map(&:strip)
+
+      head_ref_index = refs.find_index { |r| r.start_with?("HEAD -> ") }
+      refs[head_ref_index].slice!("HEAD -> ") if head_ref_index
+
+      refs.each do |r|
+        next if r.start_with?("#{main_remote}/")
+
+        branch = "#{main_remote}/#{r}"
+        if refs.include?(branch)
+          refs.delete(branch)
+          r << "#"
+        end
+      end
+
+      line.sub(original_refs, refs.join(", "))
     end
 
     # Takes an input log string and commit message, finds commit messages
