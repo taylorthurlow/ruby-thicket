@@ -52,6 +52,11 @@ module Thicket
           @options[:consolidate_refs] = refs
         end
 
+        opts.on("--main-remote=MAIN_REMOTE", String, "The name of the primary remote, defaults to 'origin'") do |main_remote|
+          args.name = main_remote
+          @options[:main_remote] = main_remote
+        end
+
         opts.on("-p", "--color-prefixes", TrueClass, "Adds coloring to commit message prefixes.") do |prefixes|
           args.name = prefixes
           @options[:color_prefixes] = prefixes

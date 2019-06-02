@@ -64,8 +64,9 @@ module Thicket
 
     # Takes an input log string and a refs list, and formats the refs list in a
     # more consolidated way.
-    def process_refs(refs, line, main_remote: "origin")
+    def process_refs(refs, line)
       original_refs = refs
+      main_remote = @options[:main_remote] || "origin"
       refs = strip_color(refs).split(",").map(&:strip)
 
       head_ref_index = refs.find_index { |r| r.start_with?("HEAD -> ") }
