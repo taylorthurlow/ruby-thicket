@@ -68,22 +68,52 @@ module Thicket
       original_refs = refs
       main_remote = @options[:main_remote] || "origin"
       refs = strip_color(refs).split(",").map(&:strip)
+      tags = []
 
       head_ref_index = refs.find_index { |r| r.start_with?("HEAD -> ") }
       refs[head_ref_index].slice!("HEAD -> ") if head_ref_index
 
+      refs_to_delete = []
       refs.each do |r|
-        refs.delete(r) if r == "#{main_remote}/HEAD"
+        puts "Processing ref: #{r}"
+        refs_to_delete << r if r == "#{main_remote}/HEAD"
         next if r.start_with?("#{main_remote}/")
 
         branch = "#{main_remote}/#{r}"
         if refs.include?(branch)
-          refs.delete(branch)
+          refs_to_delete << branch
           r << "#"
+        end
+
+        if r.start_with?("tag:")
+          tag = r
+          tag.slice!("tag: ")
+
+          refs_to_delete << r
+          tags << tag
         end
       end
 
-      line.sub(original_refs, refs.join(", "))
+      refs.delete_if { |r| refs_to_delete.include? r }
+
+      refs = if refs.any?
+               "(#{refs.join(", ")})"
+             else
+               ""
+             end
+
+      substitute = if tags.any?
+                     tags = "\e[35m[#{tags.join(", ")}]\e[0m"
+                     if refs.empty?
+                       tags
+                     else
+                       "#{refs} #{tags}"
+                     end
+                   else
+                     refs
+                   end
+
+      line.sub("(#{original_refs})", substitute)
     end
 
     # Takes an input log string and commit message, finds commit messages
