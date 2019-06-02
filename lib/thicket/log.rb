@@ -77,7 +77,8 @@ module Thicket
         refs_to_delete << r if r == "#{main_remote}/HEAD"
         next if r.start_with?("#{main_remote}/")
 
-        branch = "#{main_remote}/#{r}"
+        ref_without_head = r.delete("HEAD -> ")
+        branch = "#{main_remote}/#{ref_without_head}"
         if refs.include?(branch)
           refs_to_delete << branch
           r << "#"
