@@ -74,7 +74,6 @@ module Thicket
 
       refs_to_delete = []
       refs.each do |r|
-        puts "Processing ref: #{r}"
         refs_to_delete << r if r == "#{main_remote}/HEAD"
         next if r.start_with?("#{main_remote}/")
 
