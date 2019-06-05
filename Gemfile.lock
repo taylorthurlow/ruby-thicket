@@ -69,6 +69,7 @@ GEM
       byebug (~> 11.0)
       pry (~> 0.10)
     rainbow (3.0.0)
+    rake (12.3.2)
     rb-fsevent (0.10.3)
     rb-inotify (0.10.0)
       ffi (~> 1.0)
@@ -133,6 +134,7 @@ DEPENDENCIES
   guard
   guard-rspec
   pry-byebug
+  rake
   rspec
   rufo (~> 0.5.1)
   simplecov
