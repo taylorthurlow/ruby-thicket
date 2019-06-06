@@ -16,11 +16,14 @@ Gem::Specification.new do |s|
   s.author = "Taylor Thurlow"
   s.email = "taylorthurlow8@gmail.com"
   s.files = Dir["{bin,lib}/**/*"]
-  s.homepage = "https://github.com/taylorthurlow/thicket"
+  s.homepage = "https://github.com/taylorthurlow/ruby-thicket"
   s.bindir = "bin"
   s.executables = ["thicket"]
   s.require_paths = ["lib"]
   s.required_ruby_version = ">= 2.3"
+  s.post_install_message = <<~POSTINSTALL
+    This gem is no longer actively developed in favor of it's replacement which is written in Crystal. You can find the project at the old URL for this repository: https://github.com/taylorthurlow/thicket
+  POSTINSTALL
 
   s.add_development_dependency "as-duration"
   s.add_development_dependency "factory_bot"
